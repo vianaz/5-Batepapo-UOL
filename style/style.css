@@ -1,0 +1,58 @@
+* {
+    box-sizing: border-box;
+}
+:root {
+    --main-bg-conteiner-fixos: #fff;
+    --main-bg-main: #E5E5E5;
+}
+.texto {
+    font-family: Roboto;
+    font-style: italic;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 21px;
+    display: flex;
+    align-items: center;
+}
+.conteiners {
+    background-color: var(--main-bg-conteiner-fixos);
+    display: flex;
+    width: 100vw;
+    height: 80px;
+    justify-content: space-between;
+    align-items: center;
+}
+/* CSS para o HEADER */
+.header {
+    position: fixed;
+    padding-left: 22px;
+    padding-right: 22px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.05);
+}
+.header > img {
+    width: 75px;
+}
+.header > ion-icon{
+    font-size: 40px;
+}
+/* CSS para o MAIN */
+main {
+    height: 2000px;
+    background-color: var(--main-bg-main)
+}
+/* CSS para o FOOTER */
+.footer {
+    position: fixed;
+    padding-right: 18px;
+    padding-left: 18px;
+    bottom: 0;
+    box-shadow: 0px -4px 6px rgba(0, 0, 0, 0.05);
+}
+.footer > input{
+    outline: none;
+    border: none;
+    color: black;
+}
+.footer > ion-icon{
+    font-size: 30px;
+}
