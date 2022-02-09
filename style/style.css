@@ -2,7 +2,7 @@
     box-sizing: border-box;
 }
 :root {
-    --main-bg-conteiner-fixos: #fff;
+    --main-bg-conteiner: #fff;
     --main-bg-main: #E5E5E5;
 }
 .texto {
@@ -15,44 +15,146 @@
     align-items: center;
 }
 .conteiners {
-    background-color: var(--main-bg-conteiner-fixos);
+    background-color: var(--main-bg-conteiner);
     display: flex;
     width: 100vw;
     height: 80px;
     justify-content: space-between;
     align-items: center;
 }
+
+/* Estilos para Sala de Login*/
+body {
+    display: flex;
+    justify-content: center;
+}
+body > img {
+    position: absolute;
+    top: 72px;
+    width: 130px;
+}
+.sala-login {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100vw;
+    height: 100vh;
+    background-color: #fff;
+}
+.sala-login > input{
+    outline: none;
+    text-align: center;
+    width: 261px;
+    height: 54px;
+
+    background: #FFFFFF;
+    border: 1px solid #D7D7D7;
+    border-radius: 4px;
+}
+.button {
+    width: 109px;
+    height: 45px;
+    background-color: #E7E7E7;
+    color: #696969;
+    border-radius: 9px;
+    margin-top: 15px;
+}
+
+/* Estilos para o Bate papo */
 /* CSS para o HEADER */
-.header {
+.header-batepapo{
     position: fixed;
     padding-left: 22px;
     padding-right: 22px;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.05);
 }
-.header > img {
+.header-batepapo > img {
     width: 75px;
 }
-.header > ion-icon{
+.header-batepapo > ion-icon{
     font-size: 40px;
 }
+
+/* CSS para a Nav-Bar */
+.fundo-navbar {
+    display: flex;
+    background-color: rgba(0, 0, 0, 0.6);;
+    width: 100vw;
+    z-index: 2;
+}
+.conteiner-usuarios-online {
+    right: 0px;
+    position: absolute;
+    background-color: #fff;
+    width: 65%;
+    height: 100%;
+}
+.conteiner-usuarios-online > ion-icon {
+    font-size: 50px;
+    margin-left: 20px;
+    margin-top: 100px;
+}
+.titulo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    width: 100%;
+    height: 108px;
+}
+.titulo > p{
+    font-weight: bold;
+    font-size: 25px;
+    line-height: 30px;
+    font-style: normal;
+}
+.contato {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-left: 18px;
+    margin-top: 10px;
+    
+}
+.contato > div {
+    display: flex;
+}
+.contato {
+    font-size: 50px;
+    margin-right: 10px;
+}
+.contato p{
+    font-size: 25px;
+    font-style: normal;
+    line-height: 19px;
+    margin-left: 10px;
+}
+.check {
+    font-size: 35px;
+    color: #28BB25;
+}
+.escondido {
+    display: none;
+}
 /* CSS para o MAIN */
-main {
-    height: 2000px;
+.main-batepapo {
+    height: 100vh;
     background-color: var(--main-bg-main)
 }
 /* CSS para o FOOTER */
-.footer {
+.footer-batepapo {
     position: fixed;
     padding-right: 18px;
     padding-left: 18px;
     bottom: 0;
     box-shadow: 0px -4px 6px rgba(0, 0, 0, 0.05);
 }
-.footer > input{
+.footer-batepapo > input{
     outline: none;
     border: none;
     color: black;
 }
-.footer > ion-icon{
+.footer-batepapo > ion-icon{
     font-size: 30px;
 }

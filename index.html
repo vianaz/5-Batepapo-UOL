@@ -9,21 +9,81 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
-    <link rel="shortcut icon" href="" type="image/x-icon">
     <title>Bate Papo Uol</title>
 </head>
 <body>
-    <header class="conteiners header">
+    <header class="conteiners header-batepapo">
         <img src="img/logo 1.svg" alt="logo batepopo uol">
-        <ion-icon name="people"></ion-icon>
+        <ion-icon onclick="abrirSideBar()" name="people"></ion-icon>
     </header>
-    <main></main>
-    <footer class="conteiners footer">
+    <nav class="fundo-navbar escondido">
+        <section class="conteiner-usuarios-online">
+            <article class="escolher-contato">
+                <div class="titulo">
+                    <p class="texto">Escolha um contato para enviar mensagem:</p>
+                </div>
+                <div class="contato" onclick="selecionar()">
+                    <div>
+                        <ion-icon name="people"></ion-icon>
+                        <p class="texto">Todos</p>
+                    </div>
+                    <div>
+                        <ion-icon class="check escondido" name="checkmark-sharp"></ion-icon>
+                    </div>
+                </div>
+                <div class="contato" onclick="selecionar()">
+                    <div>
+                        <ion-icon name="person-circle-sharp"></ion-icon>
+                        <p class="texto">João</p>
+                    </div>
+                    <div>
+                        <ion-icon class="check escondido" name="checkmark-sharp"></ion-icon>
+                    </div>
+                </div>
+                <div class="contato" onclick="selecionar()">
+                    <div>
+                        <ion-icon name="person-circle-sharp"></ion-icon>
+                        <p class="texto">Maria</p>
+                    </div>
+                    <div>
+                        <ion-icon class="check escondido" name="checkmark-sharp"></ion-icon>
+                    </div>
+                </div>
+            </article>
+            <article class="escolher-visibilidade">
+                <div class="titulo">
+                    <p class="texto">Escolha a visibilidade:</p>
+                </div>
+                <div class="contato" onclick="selecionar()">
+                    <div>
+                        <ion-icon name="lock-open"></ion-icon>
+                        <p class="texto">Público</p>
+                    </div>
+                    <div>
+                        <ion-icon class="check escondido" name="checkmark-sharp"></ion-icon>
+                    </div>
+                </div>
+                <div class="contato" onclick="selecionar()">
+                    <div>
+                        <ion-icon name="lock-closed"></ion-icon>
+                        <p class="texto">Reservadamente</p>
+                    </div>
+                    <div>
+                        <ion-icon class="check escondido" name="checkmark-sharp"></ion-icon>
+                    </div>
+            </article>
+            <ion-icon name="exit-outline" onclick="abrirSideBar()"></ion-icon>
+        </section>
+    </nav>
+    <main class="main-batepapo">
+    </main>
+    <footer class="conteiners footer-batepapo">
         <input class="texto"type="text" placeholder="Escreva aqui..." >
         <ion-icon name="paper-plane-outline"></ion-icon>
     </footer>
-
+    
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <script src="script/script.js"></script>
 </body>
 </html>
