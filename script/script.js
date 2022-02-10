@@ -1,30 +1,47 @@
 // Variaveis que guardam os HTML
-const htmlScript = document.body;
-let htmlBody = document.body;
+let nomeUsuario = "";
+let promisse = "";
 
-const htmlSalaLogin = `
-    <img src="img/logo 1.svg" alt="logo batepopo uol">
-    <form class="sala-login" action="http://mock-api.driven.com.br/api/v4/uol/participants" method="post">
-        <input type="text" name="" id="login-name" placeholder="Digite seu nome" value="">
-        <div>
-            <input class="button texto" type="submit" value="Entrar">       
+function pedirNomeUsuario() {
+    nomeUsuario = prompt('Escolha um nome de usuário')
+    axios.post('https://mock-api.driven.com.br/api/v4/uol/participants', {
+        name: `${nomeUsuario}`
+    }).then(verficarNomeUsuario)
+}
+
+function verficarNomeUsuario(promisse) {
+    if (promisse.status === 200) {
+        axios.get('https://mock-api.driven.com.br/api/v4/uol/participants').then( (response) => {
+            avisoEntradaNaSala(response.data[0].name);
+        });
+        setInterval(manterConexao, 5000);
+    } else{
+        pedirNomeUsuario();
+    }
+}
+function avisoEntradaNaSala(nomePessoa) {
+    document.querySelector('main').innerHTML = `
+    <div class="entrou-sala texto">
+            <p><span>(09:21:45)</span><strong>${nomePessoa}</strong> entrou na sala...</p>
         </div>
-    </form>
 `;
+}
+function manterConexao() {
+    axios.post('https://mock-api.driven.com.br/api/v4/uol/status', {
+        name: `${nomeUsuario}`
+    });
+}
 
-const htmlSalaBatePapo =`
-    <header class="conteiners header-batepapo">
-        <img src="img/logo 1.svg" alt="logo batepopo uol">
-        <ion-icon name="people"></ion-icon>
-    </header>
-    <main class="main-batepapo">
-    </main>
-    <footer class="conteiners footer-batepapo">
-        <input class="texto"type="text" placeholder="Escreva aqui..." >
-        <ion-icon name="paper-plane-outline"></ion-icon>
-    </footer>
-`;
+
+
+
+
+
+
+
+
 
 function abrirSideBar() {
     document.querySelector('nav').classList.toggle('escondido')
 }
+pedirNomeUsuario()

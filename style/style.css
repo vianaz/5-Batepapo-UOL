@@ -139,8 +139,29 @@ body > img {
 }
 /* CSS para o MAIN */
 .main-batepapo {
+    display: flex;
+    flex-direction: column;
+    width: 100vw;
     height: 100vh;
-    background-color: var(--main-bg-main)
+    background-color: var(--main-bg-main);
+    padding-top: calc(26px + 80px);
+}
+.entrou-sala{
+    display: flex;
+    align-items: center;
+    height: 50px;
+    background-color:  #DCDCDC;;
+}
+.entrou-sala p {
+    font-style: normal;
+    margin-left: 10px;
+}
+.entrou-sala strong {
+    font-weight: bold;
+    margin-left: 10px;
+}
+.entrou-sala span{
+    color: #AAAAAA;
 }
 /* CSS para o FOOTER */
 .footer-batepapo {
