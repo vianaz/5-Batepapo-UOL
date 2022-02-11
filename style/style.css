@@ -146,23 +146,33 @@ body > img {
     height: 100vh;
     background-color: var(--main-bg-main);
     padding-top: calc(26px + 80px);
+    padding-bottom: 80px;
+    font-size: 20px;
+    line-heigh: 30px;
 }
-.entrou-sala{
+.conteiner-mensagem{
     display: flex;
     align-items: center;
-    height: 50px;
-    background-color:  #DCDCDC;;
+    min-height: 50px;
+    padding-left: 15px;
 }
-.entrou-sala p {
+.conteiner-mensagem span {
     font-style: normal;
-    margin-left: 10px;
 }
-.entrou-sala strong {
+.negrito {
     font-weight: bold;
-    margin-left: 10px;
 }
-.entrou-sala span{
+.time{
     color: #AAAAAA;
+}
+.status {
+    background-color:  #DCDCDC;
+}
+.message{
+    background-color:  #FFFFFF;
+}
+.private_message{
+    background-color:  #FFDEDE;
 }
 /* CSS para o FOOTER */
 .footer-batepapo {

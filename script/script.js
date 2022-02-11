@@ -4,15 +4,16 @@ let ultimoUsuario;
 let ultimoUsuarioGuardado;
 let indexUltimoUsuario;
 
-function pedirNomeUsuario() {
+async function pedirNomeUsuario() {
     let erro = true;
+
     while (erro) {
         nomeUsuario = prompt('Escolha um nome de usuário');
         // ultimoUsuarioGuardado = nomeUsuario;
-        axios.post('https://mock-api.driven.com.br/api/v4/uol/participants', {
-            name: `${nomeUsuario}`
+        await axios.post('https://mock-api.driven.com.br/api/v4/uol/participants', {
+            name: nomeUsuario
         }).then(() => {
-            verificarParticipates();
+            verificarNomeUsuario();
             erro = false;
         });
     }
@@ -24,26 +25,43 @@ function verificarNomeUsuario() {
 }
 
 function avisoEntradaNaSala(response) {
-    if (ultimoUsuarioGuardado.from === response.data[99].from && ultimoUsuarioGuardado.type === response.data[99].type && ultimoUsuarioGuardado.time === response.data[99].time) {
-        console.log(respose.data[99].from);
-        return;
-    }
-    const indexUltimoUsuario = response.data.findIndex( (element) => element.time === ultimoUsuarioGuardado.time);
-    console.log('Mudou Guardado:');
+    if (
+        ultimoUsuarioGuardado.from === response.data[99].from && 
+        ultimoUsuarioGuardado.type === response.data[99].type && 
+        ultimoUsuarioGuardado.time === response.data[99].time
+    ) return;
+
+    const indexUltimoUsuario = response.data.findIndex(element => 
+        element.from === ultimoUsuarioGuardado.from && 
+        element.type == ultimoUsuarioGuardado.type &&
+        element.time === ultimoUsuarioGuardado.time
+    ) + 1;
+    
     for (let index = indexUltimoUsuario; index < response.data.length; index++) {
-        console.log(response.data[index]);
-        if (response.data[index].type === "status") {
-            document.querySelector('main').innerHTML = document.querySelector('main').innerHTML + `
-            <div class="entrou-sala texto">
-                <p><span>${response.data[index].time}</span><strong>${response.data[index].from}</strong> ${response.data[index].text}</p>
-            </div>
-        `;
-        }
+        criarCard(response.data[index]);
     }
     ultimoUsuarioGuardado = response.data[99];
 }
 
+function criarCard(card) {
+    let message = `<span class="negrito">${card.from}</span>`;
+
+    if (card.type === 'message') {
+        message += ` para <span class="negrito">${card.to}:</span>`;
+    }
+    if (card.type === 'private_message') {
+        message += ` reservadamente para <span class="negrito">${card.to}:</span>`;
+    }
     
+    document.querySelector('main').innerHTML += `
+    <div class="conteiner-mensagem ${card.type}">
+        <p>
+        <span class="time">(${card.time})</span>
+        <span class="name">${message}</span>
+        <span class="text">${card.text}</span>
+        </p>
+    </div>`;
+}
 
 function verificarParticipates(){
     axios.get('https://mock-api.driven.com.br/api/v4/uol/messages').then((response) => {
@@ -56,10 +74,12 @@ function verificarParticipates(){
 }
 
 function manterConexao() {
+    console.log('manterConexao');  
     setInterval(() => {
+        console.log('manterConexao 2');
         axios.post('https://mock-api.driven.com.br/api/v4/uol/status', {
-            name: `${nomeUsuario}`
-        });
+            name: nomeUsuario
+    });
     }, 5000);
 }
 
@@ -71,7 +91,7 @@ function manterConexao() {
 
 
 
-function abrirSideBar() {
-    document.querySelector('nav').classList.toggle('escondido')
-}
+// function abrirSideBar() {
+//     document.querySelector('nav').classList.toggle('escondido')
+// }
 pedirNomeUsuario()
