@@ -139,6 +139,7 @@ body > img {
 }
 /* CSS para o MAIN */
 .main-batepapo {
+    overflow-y: auto;
     display: flex;
     flex-direction: column;
     width: 100vw;
