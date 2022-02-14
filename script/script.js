@@ -1,12 +1,17 @@
 // Variaveis que guardam os HTML
 let nomeUsuario = "";
-let ultimoUsuario;
-let ultimoUsuarioGuardado;
-let indexUltimoUsuario;
+let ultimoUsuario = undefined;
+let ultimoUsuarioGuardado = undefined;
+let indexUltimoUsuario = undefined;
+let usuarioSelecionadoAnterior = undefined;
+let visibilidadeSelecionadaAnterior = undefined;
+let mensagemDigitada = undefined;
+let nomeDestinatario = undefined;
+let tipoVisibilidade = undefined;
+
 
 async function pedirNomeUsuario() {
     let erro = true;
-
     while (erro) {
         nomeUsuario = prompt('Escolha um nome de usuário');
         // ultimoUsuarioGuardado = nomeUsuario;
@@ -54,7 +59,7 @@ function criarCard(card) {
     }
     
     document.querySelector('main').innerHTML += `
-    <div class="conteiner-mensagem ${card.type}">
+    <div class="conteiner-mensagem ${card.type}" data-identifier="message">
         <p>
         <span class="time">(${card.time})</span>
         <span class="name">${message}</span>
@@ -71,6 +76,9 @@ function verificarParticipates(){
     setInterval(() => {
         axios.get('https://mock-api.driven.com.br/api/v4/uol/messages').then(avisoEntradaNaSala);
     }, 3000);
+    setInterval(() =>{
+        axios.get('https://mock-api.driven.com.br/api/v4/uol/participants').then(usuariosOnline);
+    }, 10000)
 }
 
 function manterConexao() {
@@ -83,15 +91,91 @@ function manterConexao() {
     }, 5000);
 }
 
+// Funções Relacionadas ao Aside
+function abrirSideBar() {
+    document.querySelector('aside').classList.toggle('escondido')
+}
+function selecionarUsuario(selecionado) {
+    if (usuarioSelecionadoAnterior === undefined) {
+        selecionado.querySelector('.check').classList.remove('escondido');
+        usuarioSelecionadoAnterior = selecionado;
+    }else{
+        usuarioSelecionadoAnterior.querySelector('.check').classList.add('escondido');
+        selecionado.querySelector('.check').classList.remove('escondido');
+        usuarioSelecionadoAnterior = selecionado;
+    }
+    eviarPara(selecionado);
+}
+function eviarPara(nome) {
+    nomeDestinatario = nome.querySelector('p').innerText;
+}
 
+function selecionarVisibilidade(selecionado) {
+    if (visibilidadeSelecionadaAnterior === undefined) {
+        selecionado.querySelector('.check').classList.remove('escondido');
+        visibilidadeSelecionadaAnterior = selecionado;
+    }else{
+        visibilidadeSelecionadaAnterior.querySelector('.check').classList.add('escondido');
+        selecionado.querySelector('.check').classList.remove('escondido');
+        visibilidadeSelecionadaAnterior = selecionado;
+    }
+    tipoVisibilidade = selecionado.querySelector('p').innerText;
+    if (tipoVisibilidade === "Reservadamente") {
+        tipoVisibilidade = "private_message"
+    } else{
+        tipoVisibilidade = "message"
+    }
+}
 
+function usuariosOnline(response) {
+    document.querySelector('.escolher-contato').innerHTML = `
+        <div class="titulo">
+            <p class="texto">Escolha a visibilidade:</p>
+        </div>
+        <div class="usuarios">
+            <div class="contato" onclick="selecionarUsuario(this)">
+                <div>
+                    <ion-icon name="people"></ion-icon>
+                    <p class="texto">Todos</p>
+                </div>
+            </div>
+            <div>
+                <ion-icon class="check escondido" name="checkmark-sharp"></ion-icon>
+            </div>
+        </div>`;
 
+    document.querySelector('.usuarios').innerHTML=`
+    <div class="contato" onclick="selecionarUsuario(this)">
+        <div>
+            <ion-icon name="people"></ion-icon>
+            <p class="texto">Todos</p>
+        </div>`;
 
+    response.data.forEach(usuario => {
+        document.querySelector('.usuarios').innerHTML += `
+        <div class="contato" onclick="selecionarUsuario(this)" data-identifier="participant">
+            <div>
+                <ion-icon name="person"></ion-icon>
+                <p class="texto">${usuario.name}</p>
+            </div>
+            <div>
+                <ion-icon class="check escondido" name="checkmark-sharp"></ion-icon>
+            </div>
+        </div>`;
+        document.querySelector('main > div:last-of-type').scrollIntoView();
+    });
+}
 
+// Relacionado ao Footer
+function enviarMensagem() {
+    mensagemDigitada = document.querySelector('#input-mensagem').value;
+    document.querySelector('#input-mensagem').value = "";
+    axios.post('https://mock-api.driven.com.br/api/v4/uol/messages', {
+        from: nomeUsuario,
+        to: nomeDestinatario,
+        text: mensagemDigitada,
+        type: tipoVisibilidade,
+    });
+}
 
-
-
-// function abrirSideBar() {
-//     document.querySelector('nav').classList.toggle('escondido')
-// }
 pedirNomeUsuario()

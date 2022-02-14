@@ -18,7 +18,7 @@
         <ion-icon onclick="abrirSideBar()" name="people"></ion-icon>
     </header>
     <!-- Nav bar lateral, que começa escondida -->
-    <nav class="fundo-navbar escondido">
+    <aside class="fundo-navbar escondido">
         <!-- Parte Branca que contem o menu -->
         <section class="conteiner-usuarios-online">
             <!-- Parte superior com os contatos -->
@@ -27,36 +27,6 @@
                 <div class="titulo">
                     <p class="texto">Escolha um contato para enviar mensagem:</p>
                 </div>
-                <!-- Contatos Individualmente -->
-                <div class="contato" onclick="selecionar()">
-                    <div>
-                        <ion-icon name="people"></ion-icon>
-                        <p class="texto">Todos</p>
-                    </div>
-                    <div>
-                        <ion-icon class="check escondido" name="checkmark-sharp"></ion-icon>
-                    </div>
-                </div>
-                <!-- Contatos Individualmente -->
-                <div class="contato" onclick="selecionar()">
-                    <div>
-                        <ion-icon name="person-circle-sharp"></ion-icon>
-                        <p class="texto">João</p>
-                    </div>
-                    <div>
-                        <ion-icon class="check escondido" name="checkmark-sharp"></ion-icon>
-                    </div>
-                </div>
-                <!-- Contatos Individualmente -->
-                <div class="contato" onclick="selecionar()">
-                    <div>
-                        <ion-icon name="person-circle-sharp"></ion-icon>
-                        <p class="texto">Maria</p>
-                    </div>
-                    <div>
-                        <ion-icon class="check escondido" name="checkmark-sharp"></ion-icon>
-                    </div>
-                </div>
             </article>
             <!-- Parte inferior onde escolhe a visibilidade -->
             <article class="escolher-visibilidade">
@@ -64,7 +34,7 @@
                     <p class="texto">Escolha a visibilidade:</p>
                 </div>
                 <!-- Visiblidade Publica -->
-                <div class="contato" onclick="selecionar()">
+                <div class="contato" onclick="selecionarVisibilidade(this)" data-identifier="visibility">
                     <div>
                         <ion-icon name="lock-open"></ion-icon>
                         <p class="texto">Público</p>
@@ -74,7 +44,7 @@
                     </div>
                 </div>
                 <!-- Visiblidade Reservada -->
-                <div class="contato" onclick="selecionar()">
+                <div class="contato" onclick="selecionarVisibilidade(this)" data-identifier="visibility">
                     <div>
                         <ion-icon name="lock-closed"></ion-icon>
                         <p class="texto">Reservadamente</p>
@@ -82,18 +52,19 @@
                     <div>
                         <ion-icon class="check escondido" name="checkmark-sharp"></ion-icon>
                     </div>
+                </div>
+                <ion-icon class ="contato"name="exit-outline" onclick="abrirSideBar()"></ion-icon>
             </article>
-            <ion-icon name="exit-outline" onclick="abrirSideBar()"></ion-icon>
         </section>
-    </nav>
+    </aside>
     <!-- Conteudo do Chat -->
     <main class="main-batepapo">
     
     </main>
     <!-- Parte inferior onde digita -->
     <footer class="conteiners footer-batepapo">
-        <input class="texto"type="text" placeholder="Escreva aqui..." >
-        <ion-icon name="paper-plane-outline"></ion-icon>
+        <input id="input-mensagem" class="texto" type="text" placeholder="Escreva aqui...">
+        <ion-icon name="paper-plane-outline" onclick="enviarMensagem()" data-identifier="send-message"></ion-icon>
     </footer>
     
     <!-- Scripts Importantes -->
